@@ -7,16 +7,16 @@ set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 #Find LiteHTML
 find_package(LiteHTML REQUIRED)
 
-set(SOURCE_WEBGUI  	src/webcore.cpp
-					src/webcore.hpp
-					src/webview.cpp
-					src/webview.hpp
+set(SOURCE_WEBGUI  	src/webcore.cpp					
+					src/webview.cpp					
 					src/doc_container.cpp
 					src/doc_container.hpp
 					src/stb_image.h
 					src/stb_truetype.h
-					include/renderInterface.hpp
-					include/webgui.hpp
+					include/webgui/webview.hpp
+					include/webgui/webcore.hpp
+					include/webgui/renderInterface.hpp
+					include/webgui/webgui.hpp
 )
 
 #Build Webgui sample
