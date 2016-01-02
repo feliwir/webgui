@@ -6,13 +6,13 @@
 
 namespace wg
 {
-	class core
+	class Core
 	{
 	public:
-		core();
-		~core();
+		Core();
+		~Core();
 
-		std::shared_ptr<webview> CreateView();
+		std::shared_ptr<WebView> CreateView();
 		inline std::shared_ptr<litehtml::document_container> GetContainer()
 		{
 			return m_container;

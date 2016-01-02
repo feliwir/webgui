@@ -15,7 +15,7 @@ litehtml::uint_ptr	doc_container::create_font(const litehtml::tchar_t* faceName,
 	litehtml::font_style italic, unsigned int decoration, litehtml::font_metrics* fm)
 {
 	litehtml::uint_ptr texHandle = 0;
-	stbtt_BakeFontBitmap(ttf_buffer, 0, 32.0, temp_bitmap, 512, 512, 32, 96, cdata);
+	stbtt_BakeFontBitmap(ttf_buffer, 0, size, temp_bitmap, 512, 512, 32, 96, cdata);
 
 	//create texture here when not in atlas already
 

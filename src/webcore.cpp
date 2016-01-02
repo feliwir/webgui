@@ -2,7 +2,7 @@
 #include "doc_container.hpp"
 using namespace wg;
 
-core::core() 
+Core::Core()
 {
 	m_context = std::make_shared<litehtml::context>();
 	m_context->load_master_stylesheet("master.css");
@@ -10,12 +10,12 @@ core::core()
 	m_container = std::make_shared<doc_container>();
 }
 
-core::~core()
+Core::~Core()
 {
 
 }
 
-std::shared_ptr<webview> core::CreateView()
+std::shared_ptr<WebView> Core::CreateView()
 {
-	auto view = std::make_shared<webview>();
+	auto view = std::make_shared<WebView>();
 }

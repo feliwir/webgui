@@ -4,15 +4,15 @@
 
 namespace wg
 {
-	class webview
+	class WebView
 	{
 	public:
-		webview(std::shared_ptr<wg::core> core);
-		~webview();
+		WebView(std::shared_ptr<wg::Core> core);
+		~WebView();
 
 		bool LoadDocument(const std::string& path);
 	private:
-		std::shared_ptr<wg::core> m_core;
+		std::shared_ptr<wg::Core> m_core;
 		litehtml::document::ptr m_document;
 	};
 }
