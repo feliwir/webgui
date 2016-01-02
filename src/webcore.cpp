@@ -18,5 +18,7 @@ Core::~Core()
 
 std::shared_ptr<WebView> Core::CreateView()
 {
-	auto view = std::make_shared<WebView>();
+	auto view = std::make_shared<WebView>(std::shared_ptr<Core>(this));
+
+	return view;
 }
