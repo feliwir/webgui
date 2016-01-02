@@ -1,4 +1,5 @@
-#include "webcore.hpp"
+#include "../include/webgui/webcore.hpp"
+#include "../include/webgui/webview.hpp"
 #include "doc_container.hpp"
 using namespace wg;
 

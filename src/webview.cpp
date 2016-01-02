@@ -1,18 +1,22 @@
-#include "webview.hpp"
+#include "../include/webgui/webview.hpp"
+#include "../include/webgui/webcore.hpp"
+
 using namespace wg;
 
-webview::webview(std::shared_ptr<core> core) : m_core(core), m_document(nullptr)
+WebView::WebView(std::shared_ptr<Core> core) : m_core(core), m_document(nullptr)
 {
 
 }
 
-webview::~webview()
+WebView::~WebView()
 {
 
 }
 
-bool webview::LoadDocument(const std::string& path)
+bool WebView::LoadDocument(const std::string& path)
 {
 	m_document = litehtml::document::createFromString(path.c_str(), m_core->GetContainer().get(),
 		m_core->GetContext().get());
+
+	return true;
 }

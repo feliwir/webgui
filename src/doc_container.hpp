@@ -4,7 +4,7 @@
 #include <map>
 namespace wg
 {
-	class doc_container : litehtml::document_container
+	class doc_container : public litehtml::document_container
 	{
 	public:
 		litehtml::uint_ptr	create_font(const litehtml::tchar_t* faceName, int size, int weight, 

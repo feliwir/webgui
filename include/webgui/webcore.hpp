@@ -2,10 +2,11 @@
 #define LITEHTML_UTF8
 #include <litehtml.h>
 #include <memory>
-#include "webview.hpp"
 
 namespace wg
 {
+	class WebView;
+
 	class Core
 	{
 	public:
