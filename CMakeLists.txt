@@ -39,3 +39,7 @@ target_include_directories(webgui PUBLIC ${LiteHTML_INCLUDE_DIRS})
 target_link_libraries(webgui ${LiteHTML_LIBRARIES})
 #Use C++ 14
 set_property(TARGET webgui PROPERTY CXX_STANDARD 14)
+
+if(WEBGUI_BUILD_SAMPLE)
+	add_subdirectory(sample)
+endif()
