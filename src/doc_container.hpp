@@ -4,11 +4,14 @@
 #include <string>
 #include <map>
 
+struct stbtt_fontinfo;
+
 namespace wg
 {
 	class doc_container : public litehtml::document_container
 	{
 	public:
+		bool add_font(const std::uint8_t* data,bool def = false);
         void set_renderer(std::shared_ptr<RenderInterface> renderer);
 		litehtml::uint_ptr	create_font(const litehtml::tchar_t* faceName, int size, int weight,
 										litehtml::font_style italic, unsigned int decoration, litehtml::font_metrics* fm);
@@ -44,6 +47,8 @@ namespace wg
 	private:
 		std::map<std::string, litehtml::uint_ptr> m_imageCache;
 		std::map<std::string, litehtml::uint_ptr> m_atlasCache;
+		std::map<std::string, stbtt_fontinfo*> m_fonts;
+		std::string m_defaultFont;
 		std::shared_ptr<RenderInterface> m_renderer;
 	};
 }

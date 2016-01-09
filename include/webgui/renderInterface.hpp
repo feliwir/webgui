@@ -12,6 +12,5 @@ namespace wg
 		virtual uintptr_t CreateBuffer(float* vertices) = 0;
 		virtual void DeleteBuffer(uintptr_t handle) = 0;
 		virtual void RenderBuffer(uintptr_t bhandle, uintptr_t thandle = 0) = 0;
-
 	};
 }

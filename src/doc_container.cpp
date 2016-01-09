@@ -138,3 +138,25 @@ void doc_container::set_renderer(std::shared_ptr<RenderInterface> renderer)
 {
 	m_renderer = renderer;
 }
+
+bool doc_container::add_font(const std::uint8_t *data,bool def)
+{
+	if(m_defaultFont.size()==0)
+		def = true;
+
+	stbtt_fontinfo* font = new stbtt_fontinfo();
+	int result = stbtt_InitFont(font,data,0);
+	if(result==0)
+		return false;
+
+	int length = 0;
+	const char* buf = stbtt_GetFontNameString(font,&length,STBTT_PLATFORM_ID_MAC,STBTT_MAC_EID_ROMAN,
+											   STBTT_MAC_LANG_ENGLISH,1);
+
+	std::string name(buf,length);
+	m_fonts[name] = font;
+	if(def)
+		m_defaultFont = name;
+
+	return true;
+}

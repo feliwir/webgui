@@ -5,6 +5,7 @@ int main(int argc,char** argv)
 {
 	sf::Window win(sf::VideoMode(800, 600), "webgui sample");
 	wg::Core core;
+	bool result = core.AddFontFromFile("arial.ttf");
 	auto view = core.CreateView();
 	view->LoadDocument("test.html");
 	win.setFramerateLimit(60);

@@ -1,6 +1,8 @@
 #pragma once
 #include <litehtml.h>
 #include <memory>
+#include <stdint.h>
+#include "../../src/doc_container.hpp"
 
 namespace wg
 {
@@ -23,8 +25,10 @@ namespace wg
 			return m_context;
 		}
 
+		bool AddFontFromFile(const std::string& file);
+		bool AddFontFromMemory(const std::uint8_t* data);
 	private:
 		std::shared_ptr<litehtml::context> m_context;
-		std::shared_ptr<litehtml::document_container> m_container;
+		std::shared_ptr<wg::doc_container> m_container;
 	};
 }
