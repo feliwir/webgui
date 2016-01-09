@@ -1,7 +1,6 @@
 #define STBI_NO_HDR
 #define STBI_NO_PSD
 #define STBI_NO_PNM
-#define LITEHTML_UTF8
 #include "doc_container.hpp"
 #define STB_IMAGE_IMPLEMENTATION
 #include "stb_image.h"

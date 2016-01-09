@@ -1,7 +1,6 @@
 #pragma once
 #include <string>
 #include <memory>
-#define LITEHTML_UTF8
 #include <litehtml.h>
 
 namespace wg

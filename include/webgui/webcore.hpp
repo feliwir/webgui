@@ -1,5 +1,4 @@
 #pragma once
-#define LITEHTML_UTF8
 #include <litehtml.h>
 #include <memory>
 

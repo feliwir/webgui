@@ -4,8 +4,8 @@ project(webgui)
 
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
-#Find LiteHTML
-find_package(LiteHTML REQUIRED)
+add_definitions(-DLITEHTML_UTF8)
+add_subdirectory(LiteHTML)
 
 set(SOURCE_WEBGUI  	src/webcore.cpp					
 					src/webview.cpp					
@@ -30,15 +30,18 @@ endif()
 
 if(WEBGUI_BUILD_STATIC)
 	add_library(webgui STATIC ${SOURCE_WEBGUI})
-else()
-	add_library(webgui SHARED ${SOURCE_WEBGUI})
 	set_target_properties(webgui PROPERTIES
         COMPILE_DEFINITIONS WEBGUI_STATIC)
+else()
+	add_library(webgui SHARED ${SOURCE_WEBGUI})
 endif()
 
-target_include_directories(webgui PUBLIC ${LiteHTML_INCLUDE_DIRS})
+set_target_properties(webgui PROPERTIES
+        COMPILE_DEFINITIONS LITEHTML_UTF8)
 
-target_link_libraries(webgui ${LiteHTML_LIBRARIES})
+target_include_directories(webgui PUBLIC litehtml/include)
+
+target_link_libraries(webgui litehtml)
 #Use C++ 14
 set_property(TARGET webgui PROPERTY CXX_STANDARD 14)
 
