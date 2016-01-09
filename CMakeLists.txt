@@ -32,6 +32,8 @@ if(WEBGUI_BUILD_STATIC)
 	add_library(webgui STATIC ${SOURCE_WEBGUI})
 else()
 	add_library(webgui SHARED ${SOURCE_WEBGUI})
+	set_target_properties(webgui PROPERTIES
+        COMPILE_DEFINITIONS WEBGUI_STATIC)
 endif()
 
 target_include_directories(webgui PUBLIC ${LiteHTML_INCLUDE_DIRS})
