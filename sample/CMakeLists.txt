@@ -15,5 +15,6 @@ if(WEBGUI_BUILD_STATIC)
         COMPILE_DEFINITIONS SFML_STATIC)
 endif()
 
-target_link_libraries(sample webgui ${SFML_LIBRARIES} ${LiteHTML_LIBRARIES})
+set_property(TARGET sample PROPERTY CXX_STANDARD 14)
+target_link_libraries(sample webgui ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
 target_include_directories(sample PUBLIC ${SFML_INCLUDE_DIR})

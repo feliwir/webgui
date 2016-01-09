@@ -1,13 +1,16 @@
 #pragma once
 #include "litehtml.h"
+#include "../include/webgui/renderInterface.hpp"
 #include <string>
 #include <map>
+
 namespace wg
 {
 	class doc_container : public litehtml::document_container
 	{
 	public:
-		litehtml::uint_ptr	create_font(const litehtml::tchar_t* faceName, int size, int weight, 
+        void set_renderer(std::shared_ptr<RenderInterface> renderer);
+		litehtml::uint_ptr	create_font(const litehtml::tchar_t* faceName, int size, int weight,
 										litehtml::font_style italic, unsigned int decoration, litehtml::font_metrics* fm);
 
 		void delete_font(litehtml::uint_ptr hFont);
@@ -41,5 +44,6 @@ namespace wg
 	private:
 		std::map<std::string, litehtml::uint_ptr> m_imageCache;
 		std::map<std::string, litehtml::uint_ptr> m_atlasCache;
+		std::shared_ptr<RenderInterface> m_renderer;
 	};
 }

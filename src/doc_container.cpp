@@ -6,7 +6,7 @@
 #include "stb_image.h"
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "stb_truetype.h"
-
+#include <stdint.h>
 using namespace wg;
 unsigned char ttf_buffer[1 << 20];
 unsigned char temp_bitmap[512 * 512];
@@ -19,7 +19,7 @@ litehtml::uint_ptr	doc_container::create_font(const litehtml::tchar_t* faceName,
 	stbtt_BakeFontBitmap(ttf_buffer, 0, size, temp_bitmap, 512, 512, 32, 96, cdata);
 
 	//create texture here when not in atlas already
-
+	texHandle = (litehtml::uint_ptr)m_renderer->CreateTexture(512,512,temp_bitmap);
 	//return texture handle
 	m_atlasCache[faceName] = texHandle;
 	return texHandle;
@@ -52,7 +52,7 @@ int doc_container::get_default_font_size() const
 
 const litehtml::tchar_t * doc_container::get_default_font_name() const
 {
-	return nullptr;
+	return "arial";
 }
 
 
@@ -132,4 +132,9 @@ void doc_container::get_media_features(litehtml::media_features & media) const
 
 void doc_container::get_language(litehtml::tstring & language, litehtml::tstring & culture) const
 {
+}
+
+void doc_container::set_renderer(std::shared_ptr<RenderInterface> renderer)
+{
+	m_renderer = renderer;
 }

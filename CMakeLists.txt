@@ -4,8 +4,10 @@ project(webgui)
 
 set (CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake/Modules")
 
-add_definitions(-DLITEHTML_UTF8)
-add_subdirectory(LiteHTML)
+if(WIN32)
+	add_definitions(-DLITEHTML_UTF8)
+endif()
+add_subdirectory(litehtml)
 
 set(SOURCE_WEBGUI  	src/webcore.cpp					
 					src/webview.cpp					
@@ -23,10 +25,7 @@ set(SOURCE_WEBGUI  	src/webcore.cpp
 set (WEBGUI_BUILD_SAMPLE FALSE CACHE BOOL "TRUE to build sample of webgui")
 
 #Allow static library on windows
-if (${CMAKE_HOST_WIN32})
-    set (WEBGUI_BUILD_STATIC FALSE CACHE BOOL "TRUE to build static version of webgui")
-endif()
-
+set (WEBGUI_BUILD_STATIC FALSE CACHE BOOL "TRUE to build static version of webgui")
 
 if(WEBGUI_BUILD_STATIC)
 	add_library(webgui STATIC ${SOURCE_WEBGUI})
