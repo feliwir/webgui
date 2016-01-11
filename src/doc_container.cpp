@@ -7,8 +7,12 @@
 #define STB_TRUETYPE_IMPLEMENTATION
 #include "stb_truetype.h"
 #include <stdint.h>
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <Windows.h>
+#endif
 using namespace wg;
-unsigned char ttf_buffer[1 << 20];
+
 unsigned char temp_bitmap[512 * 512];
 stbtt_bakedchar cdata[96];
 
@@ -16,23 +20,27 @@ litehtml::uint_ptr	doc_container::create_font(const litehtml::tchar_t* faceName,
 	litehtml::font_style italic, unsigned int decoration, litehtml::font_metrics* fm)
 {
 	litehtml::uint_ptr texHandle = 0;
-	stbtt_BakeFontBitmap(ttf_buffer, 0, size, temp_bitmap, 512, 512, 32, 96, cdata);
+	auto font = m_fonts[faceName];
+
+	stbtt_BakeFontBitmap(font->data, font->fontstart, size, temp_bitmap, 512, 512, 32, 96, cdata);
 
 	//create texture here when not in atlas already
-	texHandle = (litehtml::uint_ptr)m_renderer->CreateTexture(512,512,temp_bitmap);
-	//return texture handle
-	m_atlasCache[faceName] = texHandle;
+	texHandle = (litehtml::uint_ptr)m_renderer->CreateFontAtlas(512,512,temp_bitmap);
+	//return texHandle handle
+	m_atlasCache[texHandle] = font;
 	return texHandle;
 }
 
 
 void doc_container::delete_font(litehtml::uint_ptr hFont)
 {
+	m_renderer->DeleteFontAtlas(hFont);
 	//delete texture handle
 }
 
 int doc_container::text_width(const litehtml::tchar_t * text, litehtml::uint_ptr hFont)
 {
+	auto font = m_atlasCache[hFont];
 	return 0;
 }
 
@@ -42,17 +50,23 @@ void doc_container::draw_text(litehtml::uint_ptr hdc, const litehtml::tchar_t * 
 
 int doc_container::pt_to_px(int pt)
 {
-	return 0;
+	int ret = pt;
+	#if _WIN32
+	HDC dc = GetDC(NULL);
+	ret = MulDiv(pt, GetDeviceCaps(dc, LOGPIXELSY), 72);
+	ReleaseDC(NULL, dc);
+	#endif
+	return ret;
 }
 
 int doc_container::get_default_font_size() const
 {
-	return 0;
+	return 16;
 }
 
 const litehtml::tchar_t * doc_container::get_default_font_name() const
 {
-	return "arial";
+	return m_defaultFont.c_str();
 }
 
 
@@ -139,18 +153,22 @@ void doc_container::set_renderer(std::shared_ptr<RenderInterface> renderer)
 	m_renderer = renderer;
 }
 
+wg::doc_container::~doc_container()
+{
+}
+
 bool doc_container::add_font(const std::uint8_t *data,bool def)
 {
 	if(m_defaultFont.size()==0)
 		def = true;
 
-	stbtt_fontinfo* font = new stbtt_fontinfo();
-	int result = stbtt_InitFont(font,data,0);
+	std::shared_ptr<stbtt_fontinfo> font = std::make_shared<stbtt_fontinfo>();
+	int result = stbtt_InitFont(font.get(),data,0);
 	if(result==0)
 		return false;
 
 	int length = 0;
-	const char* buf = stbtt_GetFontNameString(font,&length,STBTT_PLATFORM_ID_MAC,STBTT_MAC_EID_ROMAN,
+	const char* buf = stbtt_GetFontNameString(font.get(),&length,STBTT_PLATFORM_ID_MAC,STBTT_MAC_EID_ROMAN,
 											   STBTT_MAC_LANG_ENGLISH,1);
 
 	std::string name(buf,length);

@@ -11,6 +11,7 @@ namespace wg
 	class doc_container : public litehtml::document_container
 	{
 	public:
+		~doc_container();
 		bool add_font(const std::uint8_t* data,bool def = false);
         void set_renderer(std::shared_ptr<RenderInterface> renderer);
 		litehtml::uint_ptr	create_font(const litehtml::tchar_t* faceName, int size, int weight,
@@ -46,8 +47,8 @@ namespace wg
 		void get_language(litehtml::tstring& language, litehtml::tstring & culture) const;
 	private:
 		std::map<std::string, litehtml::uint_ptr> m_imageCache;
-		std::map<std::string, litehtml::uint_ptr> m_atlasCache;
-		std::map<std::string, stbtt_fontinfo*> m_fonts;
+		std::map<litehtml::uint_ptr, std::shared_ptr<stbtt_fontinfo>> m_atlasCache;
+		std::map<std::string, std::shared_ptr<stbtt_fontinfo>> m_fonts;
 		std::string m_defaultFont;
 		std::shared_ptr<RenderInterface> m_renderer;
 	};

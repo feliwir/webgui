@@ -2,12 +2,12 @@
 #include <string>
 #include <memory>
 #include <litehtml.h>
-
+#include "visibility.hpp"
 namespace wg
 {
 	class Core;
 
-	class WebView
+	class WG_API WebView
 	{
 	public:
 		WebView(std::shared_ptr<Core> core);

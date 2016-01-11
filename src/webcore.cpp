@@ -27,13 +27,16 @@ std::shared_ptr<WebView> Core::CreateView()
 bool Core::AddFontFromFile(const std::string& file)
 {
 	std::ifstream fin(file,std::ios::binary);
+	if (fin.fail())
+		return false;
+
 	fin.seekg(0,std::ios::end);
 	auto size = fin.tellg();
 	fin.seekg(0,std::ios::beg);
 	std::uint8_t* data = new std::uint8_t[size];
 	fin.read(reinterpret_cast<char*>(data),size);
 	bool result = m_container->add_font(data);
-	delete[] data;
+
 	return result;
 }
 

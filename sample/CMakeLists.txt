@@ -4,8 +4,13 @@ if(WEBGUI_BUILD_STATIC)
 endif()
 
 find_package(SFML 2.3 COMPONENTS window system graphics REQUIRED)
+find_package(OpenGL)
 
 set(SOURCE_SAMPLE	main.cpp
+					renderer.cpp
+					renderer.hpp
+					flextGL.c
+					flextGL.h
 )
 
 add_executable(sample ${SOURCE_SAMPLE})
@@ -16,5 +21,6 @@ if(WEBGUI_BUILD_STATIC)
 endif()
 
 set_property(TARGET sample PROPERTY CXX_STANDARD 14)
-target_link_libraries(sample webgui ${SFML_LIBRARIES} ${SFML_DEPENDENCIES})
+target_link_libraries(sample webgui ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} 
+					${OPENGL_gl_LIBRARY})
 target_include_directories(sample PUBLIC ${SFML_INCLUDE_DIR})

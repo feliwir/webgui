@@ -3,12 +3,13 @@
 #include <memory>
 #include <stdint.h>
 #include "../../src/doc_container.hpp"
+#include "visibility.hpp"
 
 namespace wg
 {
 	class WebView;
 
-	class Core
+	class WG_API Core
 	{
 	public:
 		Core();
@@ -23,6 +24,11 @@ namespace wg
 		inline std::shared_ptr<litehtml::context> GetContext()
 		{
 			return m_context;
+		}
+
+		inline void SetRenderer(std::shared_ptr<RenderInterface> renderer)
+		{
+			m_container->set_renderer(renderer);
 		}
 
 		bool AddFontFromFile(const std::string& file);
