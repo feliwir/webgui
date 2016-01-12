@@ -22,5 +22,5 @@ endif()
 
 set_property(TARGET sample PROPERTY CXX_STANDARD 14)
 target_link_libraries(sample webgui ${SFML_LIBRARIES} ${SFML_DEPENDENCIES} 
-					${OPENGL_gl_LIBRARY})
+					${OPENGL_gl_LIBRARY} ${CMAKE_DL_LIBS})
 target_include_directories(sample PUBLIC ${SFML_INCLUDE_DIR})

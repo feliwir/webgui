@@ -51,8 +51,6 @@ else()
         COMPILE_DEFINITIONS LITEHTML_UTF8)
 endif()
 
-
-
 target_include_directories(webgui PUBLIC litehtml/include)
 
 target_link_libraries(webgui litehtml)

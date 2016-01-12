@@ -23,7 +23,7 @@ uintptr_t Renderer::CreateFontAtlas(int width, int height, uint8_t * data)
 
 void Renderer::DeleteFontAtlas(uintptr_t handle)
 {
-	glDeleteTextures(1, &handle);
+	glDeleteTextures(1, reinterpret_cast<GLuint*>(&handle));
 }
 
 uintptr_t Renderer::CreateTexture(int width, int height, uint8_t * data)
@@ -37,7 +37,7 @@ uintptr_t Renderer::CreateTexture(int width, int height, uint8_t * data)
 
 void Renderer::DeleteTexture(uintptr_t handle)
 {
-	glDeleteTextures(1, &handle);
+	glDeleteTextures(1, reinterpret_cast<GLuint*>(&handle));
 }
 
 uintptr_t Renderer::CreateBuffer(Renderer::Vertex* vertices)

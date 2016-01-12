@@ -10,6 +10,8 @@
 #ifdef _WIN32
 #define WIN32_LEAN_AND_MEAN
 #include <Windows.h>
+#elif __linux__
+
 #endif
 using namespace wg;
 
@@ -34,7 +36,7 @@ litehtml::uint_ptr	doc_container::create_font(const litehtml::tchar_t* faceName,
 
 void doc_container::delete_font(litehtml::uint_ptr hFont)
 {
-	m_renderer->DeleteFontAtlas(hFont);
+	m_renderer->DeleteFontAtlas(reinterpret_cast<uintptr_t>(hFont));
 	//delete texture handle
 }
 
